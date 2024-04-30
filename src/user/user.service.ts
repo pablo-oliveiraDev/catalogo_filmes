@@ -6,7 +6,7 @@ export class UsersService {
     private prisma = new PrismaClient();
 
     // Criar um novo usuário
-    async create(data: { name: string; email: string; password: string }) {
+    async create(data:any) {
         return this.prisma.user.create({ data });
     }
 

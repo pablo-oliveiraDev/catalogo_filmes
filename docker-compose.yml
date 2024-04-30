@@ -1,22 +1,41 @@
 version: '3.8'
 services:
-  postgres:
-    image: postgres:13
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: masterkey123456
-      POSTGRES_DB: catalogo_filmes
-    ports:
-      - '5432:5432'
-  redis:
-    image: redis:latest
-    ports:
-      - '6379:6379'
-  app:
-    build: .
-    ports:
-      - '3000:3000'
-    environment:
-      DATABASE_URL: 'postgresql://user:masterkey123456@postgres:5432/catalogo_filmes'
-    depends_on:
-      - postgres
+    postgres:
+        container_name: films
+        image: postgres:12
+        environment:
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: masterkey123456
+            POSTGRES_DB: catalogo_filmes
+            PGDATA: /data/postgres
+        ports:
+            - 5432:5432
+        volumes:
+            - postgres:/data/postgres
+
+    pgadmin:
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_CONFIG_SESSION_EXPIRATION_TIME: '365'
+            PGADMIN_MASTER_PASSWORD_REQUIRED: 'false'
+            PGADMIN_DEFAULT_EMAIL: testefilms@admin.com
+            PGADMIN_DEFAULT_PASSWORD: admin123
+        ports:
+            - 8085:80
+        volumes:
+            - ./pgadmin.json:/pgadmin4/servers.json:ro
+
+    redis:
+        image: redis:latest
+        ports:
+            - 6379:6379
+    app:
+        build: .
+        ports:
+            - 3000:3000
+
+        depends_on:
+            - postgres
+
+volumes:
+    postgres:

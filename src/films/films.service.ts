@@ -5,12 +5,7 @@ import { PrismaClient } from '@prisma/client';
 export class FilmsService {
     private prisma = new PrismaClient();
 
-    async create(data: {
-        title: string;
-        description: string;
-        releaseDate: Date;
-        director: string;
-    }) {
+    async create(data:any) {
         return this.prisma.film.create({ data });
     }
 
