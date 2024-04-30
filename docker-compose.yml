@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: masterkey123456
+      POSTGRES_DB: catalogo_filmes
+    ports:
+      - '5432:5432'
+  redis:
+    image: redis:latest
+    ports:
+      - '6379:6379'
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: 'postgresql://user:masterkey123456@postgres:5432/catalogo_filmes'
+    depends_on:
+      - postgres
