@@ -5,7 +5,7 @@ import { PrismaClient } from '@prisma/client';
 export class FilmsService {
     private prisma = new PrismaClient();
 
-    async create(data:any) {
+    async create(data: any) {
         return this.prisma.film.create({ data });
     }
 

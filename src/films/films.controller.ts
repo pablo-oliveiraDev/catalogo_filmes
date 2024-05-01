@@ -1,24 +1,15 @@
-import {
-    Controller,
-    Get,
-    Post,
-    Put,
-    Delete,
-    Body,
-    Param,
-} from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { FilmsService } from './films.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtAuthGuard } from '../jwt/jwt-guard';
 import { UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('films')
 @Controller('films')
 @UseGuards(JwtAuthGuard)
 export class FilmsController {
-    constructor(
-        private readonly moviesService: FilmsService,
-        private readonly prisma: PrismaService,
-    ) {}
+    constructor(private readonly moviesService: FilmsService, private readonly prisma: PrismaService) {}
 
     @Get()
     async getAll() {

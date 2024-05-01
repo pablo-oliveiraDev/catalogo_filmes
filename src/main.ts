@@ -5,16 +5,11 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-
-    const config = new DocumentBuilder()
-        .setTitle('Catálogo de Filmes')
-        .setDescription('API para gerenciar um catálogo de filmes')
-        .setVersion('1.0')
-        .addBearerAuth()
-        .build();
+    const port = process.env.PORT || 5080;
+    const config = new DocumentBuilder().setTitle('Catálogo de Filmes').setDescription('API para gerenciar um catálogo de filmes').setVersion('1.0').addBearerAuth().build();
 
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api', app, document);
-    await app.listen(5080);
+    await app.listen(port, () => console.log(`Iniciada aplicação na porta ${port}!`));
 }
 bootstrap();
