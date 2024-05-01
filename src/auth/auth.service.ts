@@ -10,8 +10,14 @@ export class AuthService {
     constructor(private readonly jwtService: JwtService, private readonly prisma: PrismaService) {}
 
     async validateUser(username: string, password: string): Promise<any> {
+        const hashedPassword = await bcrypt.hash(password, 10);
         const user = await this.prisma.user.findUnique({
-            where: { username: username },
+            where: {
+                username: username,
+                AND: {
+                    password: hashedPassword,
+                },
+            },
         });
         if (user && (await bcrypt.compare(password, user.password))) {
             const { password, ...result } = user;
