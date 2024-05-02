@@ -1,4 +1,4 @@
-# 🖥TestShawAndPartners
+# 🖥Teste catalogo de filmes
 
 
 ## 🌍 API RESTFUL
@@ -18,41 +18,88 @@ API criada sob demanda para teste prático em desenvolvimento backend nest js
 
 * Execute ```npm install``` para instalar todas as dependências do projeto.
 
+* Execute ```docker-compose build``` subir os arquivos no docker e levantar o banco.
+
+* Execute ```docker-compose up -d``` para subir e manter o docker ativo.
+
+
 
 # 🚀 Iniciar projeto
 
-* ```node app.js``` e ```typescript``` para configurações simples.
+* ```node.js``` e ```typescript```e  ```redis```e  ```Prisma```e  ```Nest.js``` para configurações simples.
 
-* Abra o terminal na url da pasta e use cmd``` npm run dev```
+* Se seu banco de dados não existir use cmd ``` npx prisma generate```
 
-* Se seu banco de dados não existir use cmd ``` npx prisma gerado```
+* Abra o terminal na url da pasta e use cmd``` npm run start:dev```
+
+## SWAGGER
+* Tbm está configurado o swagger para testes manuais e documentação do teste.Segue o link abaixo.
+
+```
+    http://localhost:5080/api
+
+```
  
 # 📂 Banco de dados
 
    O banco de dados foi criado em Postgres e entregado ao docker para facilitar a instalação ou ate mesmo depĺoy ...Obs toda a aplicação tbm esta em docker
 # 🍕 Terminais de API
 
-
+  # ROTAS #
+  ## Users
 ## Obtenha todos os usuários
 ```
-OBTER http://localhost:5080/api/users
+GET http://localhost:5080/users
 
 ```
 ## Obtenha usuários por ID
 ```
-OBTER http://localhost:5080/users:id
+GET:ID http://localhost:5080/users:/id
 
 ```
-## Obtenha usuário por qualquer coluna
+## Crie um novo usuario
 ```
-OBTER http://localhost:5080/userBycol/col
+POST http://localhost:5080/users
 
 ```
-
+## Atualize usuarios por id
+```
+PATCH:ID http://localhost:5080/users:/id
 
 ```
 ## Deletar usuário
 ```
-GET:ID http://localhost:5080/users/:id
+DELETE:ID http://localhost:5080/users/:id
 
 ```
+ ## LOGIN
+## login
+```
+POST http://localhost:5080/auth/login
+
+```
+ ## FILMES
+## Obter todos os filmes
+```
+GET http://localhost:5080/films
+```
+## Obtenha um filme por ID
+```
+GET:ID http://localhost:5080/films/:id
+
+```
+## Atualize um filme por ID
+```
+PATCH:ID http://localhost:5080/films/:id
+
+```
+## DELETE um filme por ID
+```
+DELETE:ID http://localhost:5080/films/:id
+
+```
+
+ # * TESTES AUTOMATIZADOS 
+ ```
+  No diretorio raiz do projeto execute npm run test para executar todos os testes.
+ ```

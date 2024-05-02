@@ -5,6 +5,11 @@ import { PrismaService } from '../prisma/prisma.service';
 
 import { ApiTags } from '@nestjs/swagger';
 import { FilmsDTO, updateFilmsDTO } from './films.dto';
+import { IsPublic } from 'auth/decorators/is-public.decorator';
+import { AuthGuard } from '@nestjs/passport';
+import { LocalAuthGuard } from 'auth/guards/local-auth.guard';
+
+@IsPublic()
 
 @ApiTags('films')
 @Controller('films')

@@ -9,8 +9,8 @@ import { IsPublic } from './decorators/is-public.decorator';
 import { AuthRequest } from './models/AuthRequest';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-//https://github.com/FabricaDeSinapse/nestjs-auth/blob/main/src/auth/auth.service.ts
-//https://www.youtube.com/watch?v=3z6Cs_PtYc0&ab_channel=PauloSalvatore
+
+
 @IsPublic()
 
 @ApiTags('auth')
