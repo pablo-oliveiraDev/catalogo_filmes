@@ -4,7 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { ApiTags } from '@nestjs/swagger';
 import { UsersService } from './user.service';
 import { UserDTO } from './user.dto';
-import { IsPublic } from 'auth/decorators/is-public.decorator';
+import { IsPublic } from '../auth/decorators/is-public.decorator';
 
 @IsPublic()
 @ApiTags('users')

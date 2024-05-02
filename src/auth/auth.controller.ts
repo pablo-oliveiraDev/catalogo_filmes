@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { PrismaService } from '../prisma/prisma.service';
 
 import { ApiTags } from '@nestjs/swagger';
-import { UserDTO } from 'user/user.dto';
+import { UserDTO } from '../user/user.dto';
 import { Response } from 'express';
 import { IsPublic } from './decorators/is-public.decorator';
 import { AuthRequest } from './models/AuthRequest';
@@ -21,7 +21,5 @@ export class AuthController {
     @Post('login')
     async login(@Body() loginDto: UserDTO, @Res({ passthrough: true }) res: Response, @Request() req: AuthRequest) {
         return await this.authService.login(loginDto);
-    }
-
-  
+    } 
 }

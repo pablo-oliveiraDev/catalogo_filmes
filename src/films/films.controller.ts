@@ -3,10 +3,8 @@ import { Response } from 'express';
 import { FilmsService } from './films.service';
 import { PrismaService } from '../prisma/prisma.service';
 
-
 import { ApiTags } from '@nestjs/swagger';
 import { FilmsDTO, updateFilmsDTO } from './films.dto';
-
 
 @ApiTags('films')
 @Controller('films')
@@ -21,7 +19,7 @@ export class FilmsController {
             return films;
         } else {
             res.status(HttpStatus.INTERNAL_SERVER_ERROR);
-            throw new Error('Server error');
+            return { message: 'Server error' };
         }
     }
 
@@ -61,7 +59,7 @@ export class FilmsController {
             if (isExist) {
                 const film = await this.filmsService.update(+id, updateDto);
                 res.status(HttpStatus.OK);
-                return { message: 'User update  successful!', film };
+                return { message: 'User update successful!', film };
             } else {
                 res.status(HttpStatus.NOT_FOUND);
                 return { message: 'This user does not exist!' };
@@ -77,7 +75,7 @@ export class FilmsController {
         if (id) {
             const isExist = await this.filmsService.findOne(id);
             if (isExist) {
-                const film = await this.filmsService.delete(+id);
+                const film = await this.filmsService.delete(id);
                 res.status(HttpStatus.OK);
                 return { message: 'User deleted!', film };
             } else {
