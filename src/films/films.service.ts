@@ -8,7 +8,7 @@ export class FilmsService {
     constructor(private readonly prisma: PrismaService) {}
 
     async create(data: FilmsDTO) {
-        return await this.prisma.film.create({ data });
+        return this.prisma.film.create({ data });
     }
 
     async findAll() {

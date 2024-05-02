@@ -1,10 +1,12 @@
 import { Controller, Get, Post, Patch, Delete, Body, Param, Res, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
+import * as bcrypt from 'bcrypt';
 import { ApiTags } from '@nestjs/swagger';
 import { UsersService } from './user.service';
 import { UserDTO } from './user.dto';
+import { IsPublic } from 'auth/decorators/is-public.decorator';
 
-
+@IsPublic()
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
@@ -36,6 +38,19 @@ export class UsersController {
         } else {
             res.status(HttpStatus.NOT_FOUND);
             return { message: 'User not found' };
+        }
+    }
+
+    @Post()
+    async create(@Body() registerDto: UserDTO, @Res({ passthrough: true }) res: Response) {
+        const isExist = await this.usersService.findUsername(registerDto);
+        if (isExist) {
+            res.status(HttpStatus.NOT_FOUND);
+            return { message: 'Username already exist' };
+        } else {
+            const user = await this.usersService.create(registerDto);
+            res.status(HttpStatus.CREATED);
+            return { user, message: 'User registered successfully' };
         }
     }
 

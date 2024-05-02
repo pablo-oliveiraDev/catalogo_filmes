@@ -10,7 +10,11 @@ export class UsersService {
 
     // Criar um novo usuário
     async create(data: UserDTO) {
-        const user = await this.prisma.user.create({ data });
+         const hashedPassword = await bcrypt.hash(data.password, 10);
+        const user = await this.prisma.user.create({ data:{
+            username:data.username,
+            password: hashedPassword,
+        } });
         return user;
     }
 
@@ -23,15 +27,17 @@ export class UsersService {
     async findOne(id: number) {
         return await this.prisma.user.findUnique({ where: { id } });
     }
-
+    async findUsername(data:Partial<UserDTO>) {
+        return await this.prisma.user.findFirst({ where: { username:data.username } });
+    }
     // Atualizar um usuário pelo ID
     async update(id: number, data: UserDTO) {
         let hashedPassword = await bcrypt.hash(data.password, 10);
         return this.prisma.user.update({
             where: { id },
-            data:{
+            data: {
                 username: data.username,
-                password:hashedPassword
+                password: hashedPassword,
             },
         });
     }

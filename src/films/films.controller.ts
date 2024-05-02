@@ -1,15 +1,15 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, Patch, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, Patch, Res, HttpStatus, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { FilmsService } from './films.service';
 import { PrismaService } from '../prisma/prisma.service';
-import { JwtAuthGuard } from '../jwt/jwt-guard';
-import { UseGuards } from '@nestjs/common';
+
+
 import { ApiTags } from '@nestjs/swagger';
 import { FilmsDTO, updateFilmsDTO } from './films.dto';
 
+
 @ApiTags('films')
 @Controller('films')
-@UseGuards(JwtAuthGuard)
 export class FilmsController {
     constructor(private readonly filmsService: FilmsService) {}
 
@@ -44,7 +44,14 @@ export class FilmsController {
 
     @Post()
     async create(@Body() createDto: FilmsDTO, @Res({ passthrough: true }) res: Response) {
-        return await this.filmsService.create(createDto);
+        const films = await this.filmsService.create(createDto);
+        if (films) {
+            res.status(HttpStatus.CREATED);
+            return { message: 'Created Successfully!', films };
+        } else {
+            res.status(HttpStatus.BAD_REQUEST);
+            return { message: 'Error on creating film' };
+        }
     }
 
     @Patch(':id')
@@ -81,6 +88,5 @@ export class FilmsController {
             res.status(HttpStatus.BAD_REQUEST);
             return { message: 'Field id does not null!' };
         }
-        
     }
 }
