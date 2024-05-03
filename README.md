@@ -18,6 +18,12 @@ API criada sob demanda para teste prático em desenvolvimento backend nest js
 
 * Execute ```npm install``` para instalar todas as dependências do projeto.
 
+# 🚢 Docker
+
+                         Para rodar o projeto via docker
+
+* Todos os comandos devem ser executado no mesmo nível do diretório dos arquivos docker ou seja na raiz do projeto.
+
 * Execute ```docker-compose build``` subir os arquivos no docker e levantar o banco.
 
 * Execute ```docker-compose up -d``` para subir e manter o docker ativo.
