@@ -99,7 +99,15 @@ DELETE:ID http://localhost:5080/films/:id
 
 ```
 
- # * TESTES AUTOMATIZADOS 
+ # *😎 TESTES AUTOMATIZADOS 
  ```
   No diretorio raiz do projeto execute npm run test para executar todos os testes.
+ ```
+
+  # *✌ link deploy api 
+ ```
+  base api link https://catalogo-filmes-wi50.onrender.com
+
+  Feito deploy da api na render funcionando e operacional
+
  ```
